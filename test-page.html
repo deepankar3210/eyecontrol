@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye Control Extension Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .section {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .clickable-area {
+            background: #e8f4fd;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .clickable-area:hover {
+            background: #d1ecf1;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #5a67d8;
+        }
+        .content {
+            height: 200vh; /* Make page scrollable */
+        }
+        .scroll-indicator {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+        .link-area a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 10px;
+            display: inline-block;
+            margin: 5px;
+            border: 1px solid #667eea;
+            border-radius: 3px;
+        }
+        .link-area a:hover {
+            background: #667eea;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">
+        Scroll Position: <span id="scroll-pos">0</span>px
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Eye-Controlled Scrolling Test Page</h1>
+            <p>This page is designed to test the eye-controlled scrolling browser extension.</p>
+        </header>
+
+        <div class="section">
+            <h2>Extension Installation Instructions</h2>
+            <ol>
+                <li>Open Chrome and go to <code>chrome://extensions/</code></li>
+                <li>Enable "Developer mode" (toggle in top right)</li>
+                <li>Click "Load unpacked" and select the extension folder</li>
+                <li>The extension icon should appear in your toolbar</li>
+                <li>Click the extension icon to open the popup and configure settings</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>Testing Auto-Scroll</h2>
+            <p>Look at the top or bottom edge of your browser window to trigger automatic scrolling.</p>
+            <div class="clickable-area" onclick="alert('Clicked via mouse or single blink!')">
+                Click this area to test single blink functionality
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Testing Single Blink Click</h2>
+            <p>Focus on the buttons below and perform a single blink to click them:</p>
+            <button onclick="showMessage('Button 1 clicked!')">Test Button 1</button>
+            <button onclick="showMessage('Button 2 clicked!')">Test Button 2</button>
+            <button onclick="showMessage('Button 3 clicked!')">Test Button 3</button>
+        </div>
+
+        <div class="section">
+            <h2>Testing Double Blink Navigation</h2>
+            <p>Double blink to navigate back to the previous page (if available).</p>
+            <div class="link-area">
+                <a href="https://www.example.com" target="_blank">Example Link 1</a>
+                <a href="https://www.google.com" target="_blank">Example Link 2</a>
+                <a href="#section3">Internal Link</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section" id="section3">
+                <h2>Scrollable Content Section</h2>
+                <p>This is a long page to test the auto-scroll functionality. Look at the top or bottom of your browser window to trigger scrolling.</p>
+                
+                <div class="clickable-area" onclick="showMessage('Middle section clicked!')">
+                    Another clickable area for testing
+                </div>
+                
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                
+                <button onclick="scrollToTop()">Scroll to Top</button>
+                <button onclick="showExtensionStats()">Show Extension Stats</button>
+                
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                
+                <div class="clickable-area" onclick="alert('Bottom area clicked!')">
+                    Bottom clickable area
+                </div>
+                
+                <p>More content to make the page scrollable...</p>
+                <p>Keep adding content...</p>
+                <p>Even more content for testing...</p>
+                <p>Final section of content for comprehensive testing...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update scroll position indicator
+        window.addEventListener('scroll', () => {
+            document.getElementById('scroll-pos').textContent = Math.round(window.pageYOffset);
+        });
+
+        function showMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #4caf50;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+            `;
+            document.body.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showExtensionStats() {
+            // This would integrate with the extension to show stats
+            showMessage('Check extension popup for current stats!');
+        }
+
+        // Log page interactions for testing
+        document.addEventListener('click', (e) => {
+            console.log('Click detected on:', e.target.tagName, e.target.textContent || e.target.outerHTML.substring(0, 50));
+        });
+    </script>
+</body>
+</html>
