@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eye Control Extension Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .code { background: #f8f9fa; padding: 10px; border-radius: 3px; font-family: monospace; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Eye Control Extension Debugging</h1>
+    
+    <div class="debug-section warning">
+        <h3>📋 Debug Instructions:</h3>
+        <ol>
+            <li><strong>Install Extension:</strong> Load the extension in Chrome via chrome://extensions/</li>
+            <li><strong>Open Console:</strong> Press F12 → Console tab</li>
+            <li><strong>Reload Page:</strong> Refresh this page to see debug logs</li>
+            <li><strong>Check Logs:</strong> Look for "Eye Control Extension" messages</li>
+        </ol>
+    </div>
+
+    <div class="debug-section">
+        <h3>🎯 Testing Buttons:</h3>
+        <button onclick="testExtension()">Test Extension Status</button>
+        <button onclick="testLibraries()">Test Libraries Loading</button>
+        <button onclick="testEyeTracking()">Test Eye Tracking</button>
+        <button onclick="clearLogs()">Clear Console</button>
+    </div>
+
+    <div class="debug-section">
+        <h3>📊 Extension Status:</h3>
+        <div id="status-info">Loading...</div>
+    </div>
+
+    <div class="debug-section">
+        <h3>🔧 Expected Console Logs:</h3>
+        <div class="code">
+            ✅ "Eye Control Extension: Content script loaded"<br>
+            ✅ "Eye Control Manager: Starting initialization..."<br>
+            ✅ "Eye Control Manager: Loading settings..."<br>
+            ✅ "Eye Control Manager: Loading external libraries..."<br>
+            ✅ "WebGazer.js loaded in main world"<br>
+            ✅ "TensorFlow.js loaded in main world"<br>
+            ✅ "Eye Control Manager: Fully initialized successfully!"
+        </div>
+    </div>
+
+    <div class="debug-section error">
+        <h3>❌ Common Issues:</h3>
+        <ul>
+            <li><strong>No logs at all:</strong> Extension not installed or content script blocked</li>
+            <li><strong>Chrome runtime errors:</strong> Extension permissions issue</li>
+            <li><strong>Library loading timeout:</strong> Network/CORS issues with external scripts</li>
+            <li><strong>WebGazer errors:</strong> Camera permissions or compatibility issues</li>
+        </ul>
+    </div>
+
+    <script>
+        console.log('🔍 Debug page loaded - Extension should initialize now');
+        
+        function testExtension() {
+            console.log('🧪 Testing extension status...');
+            
+            // Check if extension content script markers exist
+            if (typeof window.eyeControlLibrariesLoaded !== 'undefined') {
+                console.log('✅ Extension libraries status:', window.eyeControlLibrariesLoaded);
+                updateStatus('Extension detected! Libraries status: ' + window.eyeControlLibrariesLoaded, 'success');
+            } else {
+                console.log('❌ Extension not detected or not initialized');
+                updateStatus('Extension not detected. Check console for errors.', 'error');
+            }
+        }
+        
+        function testLibraries() {
+            console.log('🧪 Testing external libraries...');
+            
+            if (typeof webgazer !== 'undefined') {
+                console.log('✅ WebGazer.js is available');
+            } else {
+                console.log('❌ WebGazer.js not loaded');
+            }
+            
+            if (typeof tf !== 'undefined') {
+                console.log('✅ TensorFlow.js is available');
+            } else {
+                console.log('❌ TensorFlow.js not loaded');
+            }
+        }
+        
+        function testEyeTracking() {
+            console.log('🧪 Testing eye tracking initialization...');
+            
+            if (typeof webgazer !== 'undefined') {
+                try {
+                    console.log('WebGazer status:', webgazer.isReady());
+                    updateStatus('WebGazer ready status checked - see console', 'success');
+                } catch (error) {
+                    console.error('WebGazer error:', error);
+                    updateStatus('WebGazer error: ' + error.message, 'error');
+                }
+            } else {
+                updateStatus('WebGazer not loaded yet', 'warning');
+            }
+        }
+        
+        function clearLogs() {
+            console.clear();
+            console.log('🔄 Console cleared - Extension should show logs again');
+        }
+        
+        function updateStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('status-info');
+            statusDiv.className = 'debug-section ' + type;
+            statusDiv.innerHTML = message;
+        }
+        
+        // Listen for extension messages
+        window.addEventListener('message', (event) => {
+            if (event.source === window && event.data.type) {
+                console.log('📨 Extension message:', event.data);
+            }
+        });
+        
+        // Auto-update status
+        setTimeout(() => {
+            testExtension();
+        }, 2000);
+        
+        // Monitor page for extension activity
+        let checkCount = 0;
+        const statusChecker = setInterval(() => {
+            checkCount++;
+            if (checkCount > 10) {
+                clearInterval(statusChecker);
+                if (typeof window.eyeControlLibrariesLoaded === 'undefined') {
+                    updateStatus('Extension failed to initialize after 20 seconds. Check extension installation.', 'error');
+                }
+                return;
+            }
+            
+            if (typeof window.eyeControlLibrariesLoaded !== 'undefined') {
+                clearInterval(statusChecker);
+                updateStatus('Extension successfully detected and initialized!', 'success');
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

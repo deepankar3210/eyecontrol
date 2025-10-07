@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extension Debug Test</title>
+</head>
+<body>
+    <h1>Extension Debug Test</h1>
+    <div id="debug-info"></div>
+    <script>
+        // Test if extension content script is loaded
+        console.log('Debug test page loaded');
+        
+        // Check for extension content script markers
+        setTimeout(() => {
+            const info = document.getElementById('debug-info');
+            let debugText = '<h3>Extension Debug Information:</h3>';
+            
+            // Check if content script added any markers
+            if (window.eyeControlLibrariesLoaded !== undefined) {
+                debugText += '<p>✅ Eye Control libraries status: ' + window.eyeControlLibrariesLoaded + '</p>';
+            } else {
+                debugText += '<p>❌ Eye Control libraries not detected</p>';
+            }
+            
+            // Check console for extension messages
+            debugText += '<p>Check browser console (F12) for extension logs</p>';
+            debugText += '<p>Extension should inject WebGazer.js and TensorFlow.js</p>';
+            
+            info.innerHTML = debugText;
+        }, 2000);
+        
+        // Listen for messages from content script
+        window.addEventListener('message', (event) => {
+            if (event.source === window) {
+                console.log('Extension message received:', event.data);
+            }
+        });
+    </script>
+</body>
+</html>

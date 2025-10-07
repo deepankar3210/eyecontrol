@@ -1,0 +1,327 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    color: #333;
+    background: #f8f9fa;
+}
+
+.container {
+    width: 350px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+/* Header styles */
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.logo h1 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    animation: pulse 2s infinite;
+}
+
+.status-dot.active {
+    background: #51cf66;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+/* Section styles */
+section {
+    padding: 16px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+section:last-child {
+    border-bottom: none;
+}
+
+section h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #495057;
+}
+
+/* Profile section */
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    flex-shrink: 0;
+}
+
+.avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    background: #dee2e6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.user-details {
+    flex: 1;
+}
+
+.username {
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.stat-label {
+    color: #6c757d;
+}
+
+.stat-value {
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Controls section */
+.feature-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.control-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-label {
+    flex: 1;
+    cursor: pointer;
+}
+
+.feature-name {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.feature-description {
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+/* Toggle switch styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #667eea;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Button styles */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5a67d8;
+}
+
+.btn-secondary {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.btn-secondary:hover {
+    background: #dee2e6;
+}
+
+.btn-icon {
+    font-size: 14px;
+}
+
+/* Settings section */
+.setting-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.setting-item label {
+    flex: 1;
+    font-weight: 500;
+}
+
+.slider-input {
+    flex: 1;
+    margin: 0 12px;
+    height: 4px;
+    border-radius: 2px;
+    background: #dee2e6;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+}
+
+.slider-input::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    border: none;
+}
+
+.setting-value {
+    min-width: 20px;
+    text-align: center;
+    font-weight: 500;
+    color: #667eea;
+}
+
+/* Scrollbar styling */
+.container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

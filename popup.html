@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Eye-Controlled Scrolling</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="icons/icon-32.png" alt="Eye Control" class="logo-icon">
+                <h1>Eye Control</h1>
+            </div>
+            <div class="status-indicator" id="status-indicator">
+                <span class="status-dot" id="status-dot"></span>
+                <span class="status-text" id="status-text">Inactive</span>
+            </div>
+        </header>
+
+        <section class="profile-section">
+            <h2>User Profile</h2>
+            <div class="profile-info">
+                <div class="avatar">
+                    <div class="avatar-placeholder">👤</div>
+                </div>
+                <div class="user-details">
+                    <div class="username">Anonymous User</div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Blinks Detected:</span>
+                            <span class="stat-value" id="blink-count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Pages Scrolled:</span>
+                            <span class="stat-value" id="scroll-count">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Session Time:</span>
+                            <span class="stat-value" id="session-time">0m</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="controls-section">
+            <h2>Actions</h2>
+            <div class="feature-controls">
+                <div class="control-item">
+                    <label class="toggle-label">
+                        <span class="feature-name">Auto-Scroll</span>
+                        <span class="feature-description">Scroll based on gaze direction</span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="auto-scroll-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="control-item">
+                    <label class="toggle-label">
+                        <span class="feature-name">Single Blink Click</span>
+                        <span class="feature-description">Click elements with single blink</span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="single-blink-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="control-item">
+                    <label class="toggle-label">
+                        <span class="feature-name">Double Blink Back</span>
+                        <span class="feature-description">Navigate back with double blink</span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="double-blink-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="calibrate-btn">
+                    <span class="btn-icon">🎯</span>
+                    Calibrate Eye Tracking
+                </button>
+                <button class="btn btn-secondary" id="reset-btn">
+                    <span class="btn-icon">🔄</span>
+                    Reset to Default
+                </button>
+            </div>
+        </section>
+
+        <section class="settings-section">
+            <h2>Settings</h2>
+            <div class="setting-item">
+                <label for="gaze-sensitivity">Gaze Sensitivity</label>
+                <input type="range" id="gaze-sensitivity" min="1" max="10" value="5" class="slider-input">
+                <span class="setting-value" id="gaze-sensitivity-value">5</span>
+            </div>
+            <div class="setting-item">
+                <label for="blink-sensitivity">Blink Detection Sensitivity</label>
+                <input type="range" id="blink-sensitivity" min="1" max="10" value="5" class="slider-input">
+                <span class="setting-value" id="blink-sensitivity-value">5</span>
+            </div>
+        </section>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
